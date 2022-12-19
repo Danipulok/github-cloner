@@ -25,7 +25,7 @@ There are only a few options to configure, which makes this script easy to use &
 | Option          | Type    | README                                            |
 | --------------- | ------- | ------------------------------------------------- |
 | gitUser         | string  | `Github` username                                 |
-| gitToken        | string  | `Github` [oath token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [settings](https://github.com/settings/tokens)                   |
+| gitToken        | string  | `Github` [oath token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) from [settings](https://github.com/settings/tokens) |
 | gitOrganization | string  | `Github` organisation name                        |
 | cloneOrgRepos   | boolean | Whether to clone organisation repositories or no  |
 | cloneUserRepos  | boolean | Whether to clone user repositories or no          |
