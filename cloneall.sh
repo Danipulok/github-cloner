@@ -1,18 +1,23 @@
 #!/bin/bash
-# requires jq -> http://stedolan.github.io/jq/; https://stedolan.github.io/jq/download/
+# requires jq -> https://stedolan.github.io/jq/download/;
+# create oath token -> https://github.com/settings/tokens;
 
-# GIT configuration
-gitUser="<username>"
-gitToken="<oathToken"
-gitOrganization="<organisation>"
+# GitHub configuration
+githubToken="<oathToken>"  
+githubUser="<username>"
+githubOrganization="<organisation>"
 
 # Script configuration
+targetDir="."
 cloneOrgRepos=false
-cloneUserRepos=true
+cloneUserRepos=false
 cloneType="https"  # https / ssh / ghcli
 
 
 # Script
+cd $targetDir
+echo "PWD: $(pwd)"
+
 if   [[ $cloneType == "https" ]]
     then targetField="clone_url"
 elif [[ $cloneType == "ssh" ]]
@@ -25,10 +30,10 @@ else
 fi
 
 # https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-organization-repositories
-listOrgReposUrl="https://api.github.com/orgs/$gitOrganization/repos?per_page=100"
+listOrgReposUrl="https://api.github.com/orgs/$githubOrganization/repos?per_page=100"
 if $cloneOrgRepos
 then
-    orgRepositories=$(curl $listOrgReposUrl -u ${gitUser}:${gitToken} | jq -r .[].${targetField})
+    orgRepositories=$(curl $listOrgReposUrl -u ${githubUser}:${githubToken} | jq -r .[].${targetField})
 else
     orgRepositories=""
 fi
@@ -37,7 +42,7 @@ fi
 listUserRepoUrl="https://api.github.com/user/repos?per_page=100&type=owner"
 if $cloneUserRepos
 then
-    userRepositories=$(curl $listUserRepoUrl -u ${gitUser}:${gitToken} | jq -r .[].${targetField})
+    userRepositories=$(curl $listUserRepoUrl -u ${githubUser}:${githubToken} | jq -r .[].${targetField})
 else
     userRepositories=""
 fi
